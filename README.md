@@ -8,6 +8,6 @@ You can find the class at this link:
 
 So far I have solved:
 
-*  string1.py
-*  string2.py
-*  list1.py
+* basic/string1.py
+* basic/string2.py
+* basic/list1.py
