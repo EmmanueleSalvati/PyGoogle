@@ -12,3 +12,4 @@ So far I have solved:
 * basic/string2.py
 * basic/list1.py
 * basic/list2.py
+* basic/wordcount.py
