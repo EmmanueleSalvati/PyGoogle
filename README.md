@@ -13,3 +13,4 @@ So far I have solved:
 * basic/list1.py
 * basic/list2.py
 * basic/wordcount.py
+* basic/mimic.py
