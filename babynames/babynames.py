@@ -73,10 +73,19 @@ def main():
         summary = True
         del args[0]
 
-    # +++your code here+++
     # For each filename, get the names, then either print the text output
     # or write it to a summary file
-    extract_names(args[0])
+    for i in range(len(args)):
+        the_list = extract_names(args[i])
+        text = '\n'.join(the_list)
+        if summary is False:
+            print text
+        else:
+            filename = args[i] + '.summary'
+            f = open(filename, 'w')
+            f.write(text)
+            f.close()
+
 
 if __name__ == '__main__':
     main()

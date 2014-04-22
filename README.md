@@ -14,3 +14,4 @@ So far I have solved:
 * basic/list2.py
 * basic/wordcount.py
 * basic/mimic.py
+* babynames/babynames.py
