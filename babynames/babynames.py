@@ -44,10 +44,17 @@ def extract_names(filename):
     f = open(filename, 'rU')
     text = f.read()
     year = re.search(r'(Popularity in) (\d+)', text)
-    names = re.search(r'(<td>\w</td>)+', text)
-    print year.group(2)
-    print names.group(2)
-    # return
+    female_names = re.findall(r'<td>(\d+)</td><td>\w+</td><td>(\w+)</td>', text)
+    male_names = re.findall(r'<td>(\d+)</td><td>(\w+)</td>', text)
+    return_list = [year.group(2)]
+    names_list = []
+    for female_name in female_names:
+        names_list.append(female_name[1] + ' ' + female_name[0])
+    for male_name in male_names:
+        names_list.append(male_name[1] + ' ' + male_name[0])
+    return_list = return_list + sorted(names_list)
+
+    return return_list
 
 
 def main():
