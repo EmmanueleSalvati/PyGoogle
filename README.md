@@ -15,3 +15,4 @@ So far I have solved:
 * basic/wordcount.py
 * basic/mimic.py
 * babynames/babynames.py
+* copyspecial/copyspecial.py
