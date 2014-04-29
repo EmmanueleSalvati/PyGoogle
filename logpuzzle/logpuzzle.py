@@ -26,17 +26,13 @@ def read_urls(filename):
     increasing order."""
     log_file = open(filename, 'rU')
     text = log_file.read()
-    tmp_url_list = re.findall(r'GET\s\S+\s', text)
+    tmp_url_list = re.findall(r'GET\s\S+\.jpg\s', text)
     url_list = []
     for url in tmp_url_list:
         if url not in url_list:
             url_list.append(url)
 
-    print sorted(url_list)
-
-
-    return url_list
-
+    return sorted(url_list)
 
 
 def download_images(img_urls, dest_dir):
@@ -47,8 +43,13 @@ def download_images(img_urls, dest_dir):
     with an img tag to show each local image file.
     Creates the directory if necessary.
     """
-    # +++your code here+++
+    if not os.path.isdir(dest_dir):
+        print "Directory", dest_dir, 'does not exist'
+        print "Creating", dest_dir, '...'
+        os.mkdir(dest_dir)
 
+    os.chdir(dest_dir)
+    print "Working directory", os.path.abspath(os.curdir)
 
 def main():
     args = sys.argv[1:]
