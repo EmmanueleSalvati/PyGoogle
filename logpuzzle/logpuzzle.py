@@ -26,11 +26,11 @@ def read_urls(filename):
     increasing order."""
     log_file = open(filename, 'rU')
     text = log_file.read()
-    tmp_url_list = re.findall(r'GET\s\S+\.jpg\s', text)
+    tmp_url_list = re.findall(r'GET\s/edu/\S+\.jpg\s', text)
     url_list = []
     for url in tmp_url_list:
         if url not in url_list:
-            url_list.append(url)
+            url_list.append(url.replace('GET ', 'http://code.google.com'))
 
     return sorted(url_list)
 
@@ -50,6 +50,24 @@ def download_images(img_urls, dest_dir):
 
     os.chdir(dest_dir)
     print "Working directory", os.path.abspath(os.curdir)
+
+    index_file = open('index.html', 'w')
+    index_file.write('<verbatim>\n')
+    index_file.write('<html>\n')
+    index_file.write('<body>\n')
+
+    for i in range(len(img_urls)):
+        print 'Retrieveing img%s' %i
+        urllib.urlretrieve(img_urls[i], 'img'+str(i))
+        index_file.write('<img src=\"img%s\">' %i)
+
+    index_file.write('\n')
+    index_file.write('</body>\n')
+    index_file.write('</html>')
+    index_file.close()
+
+    os.chdir('../')
+
 
 def main():
     args = sys.argv[1:]
