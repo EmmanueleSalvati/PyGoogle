@@ -28,9 +28,10 @@ def read_urls(filename):
     text = log_file.read()
     tmp_url_list = re.findall(r'GET\s/edu/\S+\.jpg\s', text)
     url_list = []
-    for url in tmp_url_list:
+    for tmp_url in tmp_url_list:
+        url = tmp_url.replace('GET ', 'http://code.google.com')
         if url not in url_list:
-            url_list.append(url.replace('GET ', 'http://code.google.com'))
+            url_list.append(url)
 
     return sorted(url_list)
 
