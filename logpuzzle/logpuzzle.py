@@ -1,4 +1,12 @@
 #!/usr/bin/python
+
+"""Logpuzzle exercise
+Given an apache logfile, find the puzzle urls and download the images.
+
+Here's what a puzzle url looks like:
+10.254.254.28 - - [06/Aug/2007:00:13:48 -0700] "GET /~foo/puzzle-bar-aaab.jpg HTTP/1.0" 302 528 "-" "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.6) Gecko/20070725 Firefox/2.0.0.6"
+"""
+
 # Copyright 2010 Google Inc.
 # Licensed under the Apache License, Version 2.0
 # http://www.apache.org/licenses/LICENSE-2.0
@@ -11,12 +19,31 @@ import re
 import sys
 import urllib
 
-"""Logpuzzle exercise
-Given an apache logfile, find the puzzle urls and download the images.
+def sort_urls(url_list):
+    """Returns a list sorted by the second word if there is a second word,
+    otherwise simply sorted"""
 
-Here's what a puzzle url looks like:
-10.254.254.28 - - [06/Aug/2007:00:13:48 -0700] "GET /~foo/puzzle-bar-aaab.jpg HTTP/1.0" 302 528 "-" "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.6) Gecko/20070725 Firefox/2.0.0.6"
-"""
+    url_dict = {}
+    for url in url_list:
+        match_word = re.search(r'-(\w+)-(\w+).jpg', url)
+        if match_word:
+            dict_key = match_word.group(2)
+            url_dict[dict_key] = url
+        else:
+            pass
+
+    if url_dict:
+        sorted_urls = []
+        url_keys = sorted(url_dict.keys())
+        print url_keys
+        for key in url_keys:
+            sorted_urls.append(url_dict[key])
+
+        print sorted_urls
+        return sorted_urls
+
+    else:
+        return sorted(url_list)
 
 
 def read_urls(filename):
@@ -33,7 +60,7 @@ def read_urls(filename):
         if url not in url_list:
             url_list.append(url)
 
-    return sorted(url_list)
+    return sort_urls(url_list)
 
 
 def download_images(img_urls, dest_dir):
@@ -58,7 +85,7 @@ def download_images(img_urls, dest_dir):
     index_file.write('<body>\n')
 
     for i in range(len(img_urls)):
-        print 'Retrieveing img%s' %i
+        print 'Retrieving img%s' %i
         urllib.urlretrieve(img_urls[i], 'img'+str(i))
         index_file.write('<img src=\"img%s\">' %i)
 
@@ -71,6 +98,8 @@ def download_images(img_urls, dest_dir):
 
 
 def main():
+    """This is the main function"""
+
     args = sys.argv[1:]
 
     if not args:

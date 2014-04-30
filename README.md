@@ -16,3 +16,4 @@ So far I have solved:
 * basic/mimic.py
 * babynames/babynames.py
 * copyspecial/copyspecial.py
+* logpuzzle/logpuzzle.py
