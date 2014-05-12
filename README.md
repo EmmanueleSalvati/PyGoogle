@@ -1,7 +1,7 @@
 PyGoogle
 ========
 
-My solution attempts to the problems of the well known PyGoogle class. 
+My solutions to the problems of the well known PyGoogle class. 
 
 You can find the class at this link:
 [PyGoogle class](https://developers.google.com/edu/python/)
